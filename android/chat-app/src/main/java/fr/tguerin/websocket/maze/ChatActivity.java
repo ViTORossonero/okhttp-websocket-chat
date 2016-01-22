@@ -3,7 +3,7 @@ package fr.tguerin.websocket.maze;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -15,13 +15,15 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import fr.tguerin.websocket.maze.event.ConnectEvent;
+import fr.tguerin.websocket.maze.event.DisconnectEvent;
 import fr.tguerin.websocket.maze.event.MessageReceivedEvent;
 import fr.tguerin.websocket.maze.event.SendMessageEvent;
 import fr.tguerin.websocket.maze.service.WebSocketClient;
 import timber.log.Timber;
 
 
-public class ChatActivity extends ActionBarActivity {
+public class ChatActivity extends AppCompatActivity {
 
     private static final String STATE_MESSAGES = "stateMessages";
 
@@ -57,6 +59,16 @@ public class ChatActivity extends ActionBarActivity {
         messageEditText.setText("");
         messageEditText.clearFocus();
         hideKeyboard();
+    }
+
+    @OnClick(R.id.btnConnect)
+    public void onConnectClick(){
+        EventBus.getDefault().post(new ConnectEvent());
+    }
+
+    @OnClick(R.id.btnDisconnect)
+    public void onDisconnectClick(){
+        EventBus.getDefault().post(new DisconnectEvent());
     }
 
     private void hideKeyboard() {
