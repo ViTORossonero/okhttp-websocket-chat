@@ -75,7 +75,7 @@ public class WebSocketClient extends Service implements WebSocketListener {
     private void connectToWebSocket() {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("ws://192.168.0.25:5000")
+                .url("ws://192.168.56.1:5000")
                 .build();
         mWebSocket = WebSocket.newWebSocket(okHttpClient, request);
         try {
